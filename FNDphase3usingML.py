@@ -11,9 +11,9 @@ from sklearn.metrics import classification_report
 
 import re, pickle
 import string
-
+from sklearn.feature_extraction.text import TfidfVectorizer
 import Models
-
+import DataPreprocessing
 
 # Importing Datasets
 
@@ -46,48 +46,11 @@ def dataImporting():
     
     return dataset
 
-
-def Normalizer(text):
-    text = text.lower()
-    text = re.sub('\[.*?\]', '', text)
-    text = re.sub("\\W"," ",text) 
-    text = re.sub('https?://\S+|www\.\S+', '', text)
-    text = re.sub('<.*?>+', '', text)
-    text = re.sub('[%s]' % re.escape(string.punctuation), '', text)
-    text = re.sub('\n', '', text)
-    text = re.sub('\w*\d\w*', '', text)    
-    return text
-
 dataset = dataImporting()
 
-def NormalizeDataset(dataset):
-    dataset["text"] = dataset["text"].apply(Normalizer)
-    return dataset
-
-dataset = NormalizeDataset(dataset)
-
-def SplitDATA(dataset):
-        
-    X_data = dataset['text']
-    Y_data = dataset['class']
-    
-    X_train, X_test, Y_train, Y_test = train_test_split(X_data, Y_data, test_size = 0.20)
-    return (X_train, X_test, Y_train, Y_test)
-
-
-X_train, X_test, Y_train, Y_test = SplitDATA(dataset)
-
-# Convert text to vectors
-from sklearn.feature_extraction.text import TfidfVectorizer
-vectorization = TfidfVectorizer()
-def textTOvectorConvertor(X_train, X_test):
-    XV_train = vectorization.fit_transform(X_train)
-    XV_test = vectorization.transform(X_test)
-    
-    return XV_train, XV_test
-
-XV_train, XV_test = textTOvectorConvertor(X_train, X_test)
-
+# make object and send with the constructor
+DataPreprocessingObject = DataPreprocessing.Preprocessing(dataset)
+X_train, X_test, Y_train, Y_test = DataPreprocessingObject.preprocess()
 
 def models():
     '''from sklearn.linear_model import LogisticRegression
@@ -101,7 +64,7 @@ def models():
 
     model = Models.models()
     # print(model.model, model.LR_model, model.DT_model, model.GB_model, model.RF_model)
-    model.feedData(XV_train, Y_train, XV_test, Y_test)
+    model.feedData(X_train, Y_train, X_test, Y_test)
     model.fit()
     model.predict()
     model.selectModel()
@@ -115,8 +78,11 @@ model = models()
 def manual_testing_news(news, model):
     testing_news = {"text": [news]}
     test_data = pd.DataFrame(testing_news)
-    test_data["text"] = test_data["text"].apply(Normalizer)
+    test_data["text"] = test_data["text"].apply(DataPreprocessingObject.Normalizer)
     X_data_test = test_data["text"]
+    print(X_data_test)
+    vectorization = TfidfVectorizer()
+    vectorization.fit_transform(X_data_test)
     XV_data_test = vectorization.transform(X_data_test)
     pred_value = model.predict(XV_data_test)
     return pred_value

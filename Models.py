@@ -61,7 +61,7 @@ class models:
             self.model = self.LR_model
         elif self.accuracy_DT_model > self.accuracy_LR_model and self.accuracy_DT_model > self.accuracy_GB_model and self.accuracy_DT_model > self.accuracy_RF_model:
             self.model = self.DT_model
-        elif self.accuracy_GB_model > self.accuracy_LR_model and self.accuracy_GB_model > self.accuracy_DT_model and self.accuracy_DB_model > self.accuracy_RF_model:
+        elif self.accuracy_GB_model > self.accuracy_LR_model and self.accuracy_GB_model > self.accuracy_DT_model and self.accuracy_GB_model > self.accuracy_RF_model:
             self.model = self.GB_model
         else:
             self.model = self.RF_model
