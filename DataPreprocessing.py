@@ -13,6 +13,7 @@ class Preprocessing:
         self.Y_train = None
         self.X_test = None
         self.Y_test = None
+        self.vectorization = TfidfVectorizer()
         
     def Normalizer(self, text):
         text = text.lower()
@@ -41,9 +42,8 @@ class Preprocessing:
         
     # Convert text to vectors
     def textTOvectorConvertor(self, X_train, X_test):
-        vectorization = TfidfVectorizer()
-        XV_train = vectorization.fit_transform(X_train)
-        XV_test = vectorization.transform(X_test)
+        XV_train = self.vectorization.fit_transform(X_train)
+        XV_test = self.vectorization.transform(X_test)
         
         return XV_train, XV_test
     

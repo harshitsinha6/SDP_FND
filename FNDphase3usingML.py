@@ -11,7 +11,6 @@ from sklearn.metrics import classification_report
 
 import re, pickle
 import string
-from sklearn.feature_extraction.text import TfidfVectorizer
 import Models
 import DataPreprocessing
 
@@ -81,9 +80,7 @@ def manual_testing_news(news, model):
     test_data["text"] = test_data["text"].apply(DataPreprocessingObject.Normalizer)
     X_data_test = test_data["text"]
     print(X_data_test)
-    vectorization = TfidfVectorizer()
-    vectorization.fit_transform(X_data_test)
-    XV_data_test = vectorization.transform(X_data_test)
+    XV_data_test = DataPreprocessingObject.vectorization.transform(X_data_test)
     pred_value = model.predict(XV_data_test)
     return pred_value
 
