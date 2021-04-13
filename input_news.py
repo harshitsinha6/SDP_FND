@@ -14,11 +14,10 @@ for k, v in data.items():
         for k, v in value.items():
             print('key: ', k)
             print('value: ', v)
-            print("\n\n\n")
-            
+            print("\n\n\n")       
 '''
 
-url = [
+urls = [
        'https://timesofindia.indiatimes.com/navjson/nav-48986328.cms?preload=1',
        'https://timesofindia.indiatimes.com/navjson/nav-296589292.cms?preload=1',
        'https://timesofindia.indiatimes.com/navjson/nav-1898055.cms?preload=1',
@@ -30,7 +29,7 @@ url = [
        'https://timesofindia.indiatimes.com/navjson/nav-9978101.cms?preload=1'
        ]
 
-url1 = [
+urls1 = [
         'https://www.hindustantimes.com/static-content/10s/cricket-liupre.json',
         'https://content.jwplatform.com/v2/media/ruywLvZt?recommendations_playlist_id=ispf3NOE',
         ''
@@ -54,7 +53,16 @@ def ScrapData(source_link, target_word):
     raws = soup.find_all("a")
     data = []
     for raw in raws:
-        data.append((raw.get_text(), str(raw)))
+        url = str(raw)
+        d = raw.get_text()
+        if len(d)>2 and 'href' in url and 'https:' in url:
+            index = url.index('href')
+            u = ''
+            for i in url[index+5:]:
+                if i==' ' or i==">":
+                    break
+                u+=i
+            data.append((d, u))
     return data
 
 data = []
