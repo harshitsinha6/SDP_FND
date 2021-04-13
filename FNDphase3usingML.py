@@ -98,7 +98,7 @@ news = """BRUSSELS (Reuters) - NATO allies on Tuesday welcomed President Donald 
  to step up their contributions to NATO and his description of the alliance as  obsolete  - even though, since taking office, 
  he has said this is no longer the case. NATO Secretary General Jens Stoltenberg said in a statement: 
      NATO remains fully committed to Afghanistan and I am looking forward to discussing the way ahead with (Defense)
-     Secretary (James) Mattis and our Allies and international partners.  NATO has 12,000 troops in Afghanistan, 
+     Secretary (James) Mattis and our Allies and international partners.  NATO has 1 2,000 troops in Afghanistan, 
      and 15 countries have pledged more, Stoltenberg said. Britain, a leading NATO member, called the U.S. commitment  
      very welcome .  In my call with Secretary Mattis yesterday we agreed that despite the challenges, we have to stay the 
      course in Afghanistan to help build up its fragile democracy and reduce the terrorist threat to the West,  
